@@ -5,8 +5,10 @@ function init(){
   $('.container').append(boardBinder);
   $('.col-xs-4').on('click', markSquare);
   bucketPicker();
-  $('.container').append('<div class="row lo"><div><span class="glyphicon '+ icons[0]+' aria-hidden="true"> V. <span class="glyphicon '+ icons[1] +' aria-hidden="true"></span></div></div>');
+  $('.container').append('<div class="row lo"><span class="glyphicon '+ icons[0]+' aria-hidden="true"></span> V. <span class="glyphicon '+ icons[1] +' aria-hidden="true"></span></div>');
+  $('.lo :nth-child(1)').css('color', 'yellow');
 }
+
 function boardBinder(){
   var boardSize = 3;
   var boardArray = [];
@@ -25,9 +27,10 @@ function boardBinder(){
 }
 
 function markSquare(){
-  //if true
-  addIcon($(this));
-  winning($(this));
+  if ($(this).attr('data-icon') !== 'true'){
+    addIcon($(this));
+    winning($(this));
+  }
 }
 
 var firstPlayer = 'true';
@@ -38,11 +41,15 @@ function addIcon(x){
     if (firstPlayer === 'true'){
       x.attr('data-icon', true).attr('data-who', 'first');
       x.children().addClass(icons[0]);
+      $('.lo :nth-child(1)').css('color', '#333');
+      $('.lo :nth-child(2)').css('color', 'yellow');
       firstPlayer = 'false';
     }
     else if (firstPlayer === 'false'){
       x.attr('data-icon', true).attr('data-who', 'second');
       x.children().addClass(icons[1]);
+      $('.lo :nth-child(2)').css('color', '#333').next().remove();
+      $('.lo :nth-child(1)').css('color', 'yellow');
       firstPlayer = 'true';
     }
   }
@@ -63,37 +70,70 @@ function bucketPicker(){
 }
 
 function winning(newThis){
-  console.log($('.r1 > .col-xs-4').has('data-who', 'first').length)
-  console.log($('.r1 > .c1').attr('data-who'))
   if(($('.r1 > .c1').attr('data-who') === 'first' &&
-        $('.r1 > .c2').attr('data-who') === 'first' &&
-          $('.r1 > .c3').attr('data-who') === 'first')||
-            ($('.r1 > .c1').attr('data-who') === 'second' &&
-                $('.r1 > .c2').attr('data-who') === 'second' &&
-                  $('.r1 > .c3').attr('data-who') === 'second')||
-                  ($('.r2 > .c1').attr('data-who') === 'first' &&
-                        $('.r2 > .c2').attr('data-who') === 'first' &&
-                          $('.r2 > .c3').attr('data-who') === 'first')||
-                            ($('.r2 > .c1').attr('data-who') === 'second' &&
-                                $('.r2 > .c2').attr('data-who') === 'second' &&
-                                  $('.r2 > .c3').attr('data-who') === 'second') ||
-     ($('.r3 > .c1').attr('data-who') === 'first' &&
-        $('.r3 > .c2').attr('data-who') === 'first' &&
-          $('.r3 > .c3').attr('data-who') === 'first')||
-            ($('.r3 > .c1').attr('data-who') === 'second' &&
-                $('.r3 > .c2').attr('data-who') === 'second' &&
-                  $('.r3 > .c3').attr('data-who') === 'second')||
-                  ($('.r1 > .c1').attr('data-who') === 'first' &&
-                        $('.r2 > .c1').attr('data-who') === 'first' &&
-                          $('.r3 > .c1').attr('data-who') === 'first')||
-                            ($('.r1 > .c1').attr('data-who') === 'second' &&
-                                $('.r2 > .c1').attr('data-who') === 'second' &&
-                                  $('.r3 > .c1').attr('data-who') === 'second')){
-    console.log($(newThis).children().attr('class'));
-
-    $('.mydiv').append('<div class="win"><div><span class="'+ $(newThis).children().attr("class")+'" aria-hidden="true"> is the Winner!!!</div><button type="button" class="btn btn-success">Play Again!!</button>');
+  $('.r1 > .c2').attr('data-who') === 'first' &&
+  $('.r1 > .c3').attr('data-who') === 'first')||
+  ($('.r1 > .c1').attr('data-who') === 'second' &&
+  $('.r1 > .c2').attr('data-who') === 'second' &&
+  $('.r1 > .c3').attr('data-who') === 'second')||
+  ($('.r2 > .c1').attr('data-who') === 'first' &&
+  $('.r2 > .c2').attr('data-who') === 'first' &&
+  $('.r2 > .c3').attr('data-who') === 'first')||
+  ($('.r2 > .c1').attr('data-who') === 'second' &&
+  $('.r2 > .c2').attr('data-who') === 'second' &&
+  $('.r2 > .c3').attr('data-who') === 'second') ||
+  ($('.r3 > .c1').attr('data-who') === 'first' &&
+  $('.r3 > .c2').attr('data-who') === 'first' &&
+  $('.r3 > .c3').attr('data-who') === 'first')||
+  ($('.r3 > .c1').attr('data-who') === 'second' &&
+  $('.r3 > .c2').attr('data-who') === 'second' &&
+  $('.r3 > .c3').attr('data-who') === 'second')||
+  ($('.r1 > .c1').attr('data-who') === 'first' &&
+  $('.r2 > .c1').attr('data-who') === 'first' &&
+  $('.r3 > .c1').attr('data-who') === 'first')||
+  ($('.r1 > .c1').attr('data-who') === 'second' &&
+  $('.r2 > .c1').attr('data-who') === 'second' &&
+  $('.r3 > .c1').attr('data-who') === 'second') ||
+  ($('.r1 > .c2').attr('data-who') === 'first' &&
+  $('.r2 > .c2').attr('data-who') === 'first' &&
+  $('.r3 > .c2').attr('data-who') === 'first') ||
+  ($('.r1 > .c2').attr('data-who') === 'second' &&
+  $('.r2 > .c2').attr('data-who') === 'second' &&
+  $('.r3 > .c2').attr('data-who') === 'second')||
+  ($('.r1 > .c3').attr('data-who') === 'first' &&
+  $('.r2 > .c3').attr('data-who') === 'first' &&
+  $('.r3 > .c3').attr('data-who') === 'first')||
+  ($('.r1 > .c3').attr('data-who') === 'second' &&
+  $('.r2 > .c3').attr('data-who') === 'second' &&
+  $('.r3 > .c3').attr('data-who') === 'second') ||
+  ($('.r1 > .c1').attr('data-who') === 'first' &&
+  $('.r2 > .c2').attr('data-who') === 'first' &&
+  $('.r3 > .c3').attr('data-who') === 'first')||
+  ($('.r1 > .c1').attr('data-who') === 'second' &&
+  $('.r2 > .c2').attr('data-who') === 'second' &&
+  $('.r3 > .c3').attr('data-who') === 'second')||
+  ($('.r3 > .c1').attr('data-who') === 'first' &&
+  $('.r2 > .c2').attr('data-who') === 'first' &&
+  $('.r1 > .c3').attr('data-who') === 'first')||
+  ($('.r3 > .c1').attr('data-who') === 'second' &&
+  $('.r2 > .c2').attr('data-who') === 'second' &&
+  $('.r1 > .c3').attr('data-who') === 'second')){
+    $('.mydiv').append('<div class="win"><div><span class="'+ $(newThis).children().attr("class")+'" aria-hidden="true"></span>is the Winner!!!</div><button type="button" class="btn btn-success">Play Again!!</button>');
     $('.btn').on('click', replay);
   }
+  else if($('.r1 > .c1').attr('data-icon') === 'true' &&
+  $('.r1 > .c2').attr('data-icon') === 'true' &&
+  $('.r1 > .c3').attr('data-icon') === 'true' &&
+  $('.r2 > .c1').attr('data-icon') === 'true' &&
+  $('.r2 > .c2').attr('data-icon') === 'true' &&
+  $('.r2 > .c3').attr('data-icon') === 'true' &&
+  $('.r3 > .c1').attr('data-icon') === 'true' &&
+  $('.r3 > .c2').attr('data-icon') === 'true' &&
+  $('.r3 > .c3').attr('data-icon') === 'true'){
+    $('.mydiv').append('<div class="win"><div><img src="https://www.google.com/url?sa=i&rct=j&q=&esrc=s&source=images&cd=&cad=rja&uact=8&ved=0ahUKEwjamJyf06PKAhVFxWMKHad0AnwQjRwIBw&url=http%3A%2F%2Fcatbearding.com%2F20-funniest-cat-gifs-this-week%2F&psig=AFQjCNEy0NF6-aOJttMmFhe-HBLS0qnC8g&ust=1452666640922199" alt="Cat"> is the Winner!!!</div><button type="button" class="btn btn-success">Play Again!!</button>');
+    $('.btn').on('click', replay);
+  }
+
 
 }
 function replay(){

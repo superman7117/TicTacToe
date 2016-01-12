@@ -1,36 +1,48 @@
 body{
   background: dodgerblue;
 }
+
 .container {
   margin-top: 7vw;
 }
-.a, .lo {
+
+.win {
   display: flex;
   justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  text-align: center;
+}
 
+.a, .lo {
+  display: flex;
+  text-align: center;
   align-items: center;
   font-size: 4em;
   border: 1px solid red;
 }
+
 .mydiv {
   flex-direction: column;
   background-color: red;
   border-top-left-radius: 100%;
   border-top-right-radius: 100%;
-
+  justify-content: center;
 }
+
 .lo {
   flex-direction: row;
   background-color: red;
   border-bottom-left-radius: 100%;
   border-bottom-right-radius: 100%;
+  justify-content: space-between;
 
 }
 .col-xs-4 {
   background-color: orange;
   border: 1px solid red;
   display: flex;
-  font-size: 3vw;
+  font-size: 11vw;
   justify-content: center;
   align-items: center;
   border: 1px solid red;
