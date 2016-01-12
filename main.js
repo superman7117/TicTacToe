@@ -25,9 +25,10 @@ function boardBinder(){
   }
   return boardArray.join('');
 }
+var win = false;
 
 function markSquare(){
-  if ($(this).attr('data-icon') !== 'true'){
+  if ($(this).attr('data-icon') !== 'true' && win !== true){
     addIcon($(this));
     winning($(this));
   }
@@ -119,6 +120,7 @@ function winning(newThis){
   $('.r2 > .c2').attr('data-who') === 'second' &&
   $('.r1 > .c3').attr('data-who') === 'second')){
     $('.mydiv').append('<div class="win"><div><span class="'+ $(newThis).children().attr("class")+'" aria-hidden="true"></span>is the Winner!!!</div><button type="button" class="btn btn-success">Play Again!!</button>');
+    win = true;
     $('.btn').on('click', replay);
   }
   else if($('.r1 > .c1').attr('data-icon') === 'true' &&
@@ -131,7 +133,9 @@ function winning(newThis){
   $('.r3 > .c2').attr('data-icon') === 'true' &&
   $('.r3 > .c3').attr('data-icon') === 'true'){
     $('.mydiv').append('<div class="win"><div><div class="cat"></div> is the Winner!!!</div><button type="button" class="btn btn-success">Play Again!!</button>');
+    win = true;
     $('.btn').on('click', replay);
+
   }
 
 
@@ -140,6 +144,7 @@ function replay(){
   newBucket = $.merge([], bucket);
   firstPlayer = 'true';
   icons = [];
+  win = false;
   $('.mydiv').parent().nextAll().remove();
   $('.btn').remove();
   $('.win').remove();
