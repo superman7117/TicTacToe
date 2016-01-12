@@ -130,7 +130,7 @@ function winning(newThis){
   $('.r3 > .c1').attr('data-icon') === 'true' &&
   $('.r3 > .c2').attr('data-icon') === 'true' &&
   $('.r3 > .c3').attr('data-icon') === 'true'){
-    $('.mydiv').append('<div class="win"><div><img src="https://www.google.com/url?sa=i&rct=j&q=&esrc=s&source=images&cd=&cad=rja&uact=8&ved=0ahUKEwjamJyf06PKAhVFxWMKHad0AnwQjRwIBw&url=http%3A%2F%2Fcatbearding.com%2F20-funniest-cat-gifs-this-week%2F&psig=AFQjCNEy0NF6-aOJttMmFhe-HBLS0qnC8g&ust=1452666640922199" alt="Cat"> is the Winner!!!</div><button type="button" class="btn btn-success">Play Again!!</button>');
+    $('.mydiv').append('<div class="win"><div><div class="cat"></div> is the Winner!!!</div><button type="button" class="btn btn-success">Play Again!!</button>');
     $('.btn').on('click', replay);
   }
 

@@ -61,3 +61,7 @@ span {
 [data-showing*=true]{
   background-color: dodgerblue;
 }
+.cat {
+  height: 30vw;
+  background-image: url(http://welovecatsandkittens.com/wp-content/uploads/2014/02/boxing.gif);
+}
