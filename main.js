@@ -33,7 +33,9 @@ var icons = [];
 function markSquare(){
   if ($(this).attr('data-icon') !== 'true' && win !== true){
     addIcon($(this));
-    console.log($($('.r1>[data-who="first"]').length)
+    var $dataWho = $(this).attr('data-who')
+    console.log($(this).attr('data-who'));
+    console.log(($('.r1').children().attr('data-who') === $dataWho).length)
     winning($(this));
   }
 }
@@ -41,15 +43,13 @@ function markSquare(){
 function addIcon(x){
   if (x.attr('data-icon') !== 'true'){
     if (firstPlayer === 'true'){
-      x.attr('data-icon', true).attr('data-who', 'first');
-      x.children().addClass(icons[0]);
+      x.attr('data-icon', true).attr('data-who', 'first').children().addClass(icons[0]);
       $('.lo :nth-child(1)').css('color', '#333');
       $('.lo :nth-child(2)').css('color', 'yellow');
       firstPlayer = 'false';
     }
     else if (firstPlayer === 'false'){
-      x.attr('data-icon', true).attr('data-who', 'second');
-      x.children().addClass(icons[1]);
+      x.attr('data-icon', true).attr('data-who', 'second').children().addClass(icons[1]);
       $('.lo :nth-child(2)').css('color', '#333').next().remove();
       $('.lo :nth-child(1)').css('color', 'yellow');
       firstPlayer = 'true';
