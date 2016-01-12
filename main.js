@@ -25,17 +25,18 @@ function boardBinder(){
   }
   return boardArray.join('');
 }
+
 var win = false;
+var firstPlayer = 'true';
+var icons = [];
 
 function markSquare(){
   if ($(this).attr('data-icon') !== 'true' && win !== true){
     addIcon($(this));
+    console.log($($('.r1>[data-who="first"]').length)
     winning($(this));
   }
 }
-
-var firstPlayer = 'true';
-var icons = [];
 
 function addIcon(x){
   if (x.attr('data-icon') !== 'true'){
@@ -71,75 +72,34 @@ function bucketPicker(){
 }
 
 function winning(newThis){
-  if(($('.r1 > .c1').attr('data-who') === 'first' &&
-  $('.r1 > .c2').attr('data-who') === 'first' &&
-  $('.r1 > .c3').attr('data-who') === 'first')||
-  ($('.r1 > .c1').attr('data-who') === 'second' &&
-  $('.r1 > .c2').attr('data-who') === 'second' &&
-  $('.r1 > .c3').attr('data-who') === 'second')||
-  ($('.r2 > .c1').attr('data-who') === 'first' &&
-  $('.r2 > .c2').attr('data-who') === 'first' &&
-  $('.r2 > .c3').attr('data-who') === 'first')||
-  ($('.r2 > .c1').attr('data-who') === 'second' &&
-  $('.r2 > .c2').attr('data-who') === 'second' &&
-  $('.r2 > .c3').attr('data-who') === 'second') ||
-  ($('.r3 > .c1').attr('data-who') === 'first' &&
-  $('.r3 > .c2').attr('data-who') === 'first' &&
-  $('.r3 > .c3').attr('data-who') === 'first')||
-  ($('.r3 > .c1').attr('data-who') === 'second' &&
-  $('.r3 > .c2').attr('data-who') === 'second' &&
-  $('.r3 > .c3').attr('data-who') === 'second')||
-  ($('.r1 > .c1').attr('data-who') === 'first' &&
-  $('.r2 > .c1').attr('data-who') === 'first' &&
-  $('.r3 > .c1').attr('data-who') === 'first')||
-  ($('.r1 > .c1').attr('data-who') === 'second' &&
-  $('.r2 > .c1').attr('data-who') === 'second' &&
-  $('.r3 > .c1').attr('data-who') === 'second') ||
-  ($('.r1 > .c2').attr('data-who') === 'first' &&
-  $('.r2 > .c2').attr('data-who') === 'first' &&
-  $('.r3 > .c2').attr('data-who') === 'first') ||
-  ($('.r1 > .c2').attr('data-who') === 'second' &&
-  $('.r2 > .c2').attr('data-who') === 'second' &&
-  $('.r3 > .c2').attr('data-who') === 'second')||
-  ($('.r1 > .c3').attr('data-who') === 'first' &&
-  $('.r2 > .c3').attr('data-who') === 'first' &&
-  $('.r3 > .c3').attr('data-who') === 'first')||
-  ($('.r1 > .c3').attr('data-who') === 'second' &&
-  $('.r2 > .c3').attr('data-who') === 'second' &&
-  $('.r3 > .c3').attr('data-who') === 'second') ||
-  ($('.r1 > .c1').attr('data-who') === 'first' &&
-  $('.r2 > .c2').attr('data-who') === 'first' &&
-  $('.r3 > .c3').attr('data-who') === 'first')||
-  ($('.r1 > .c1').attr('data-who') === 'second' &&
-  $('.r2 > .c2').attr('data-who') === 'second' &&
-  $('.r3 > .c3').attr('data-who') === 'second')||
-  ($('.r3 > .c1').attr('data-who') === 'first' &&
-  $('.r2 > .c2').attr('data-who') === 'first' &&
-  $('.r1 > .c3').attr('data-who') === 'first')||
-  ($('.r3 > .c1').attr('data-who') === 'second' &&
-  $('.r2 > .c2').attr('data-who') === 'second' &&
-  $('.r1 > .c3').attr('data-who') === 'second')){
+  if($('.r1>[data-who="first"]').length === 3 ||
+  ($('.r1>[data-who="second"]').length === 3)||
+  ($('.r2>[data-who="first"]').length === 3)||
+  ($('.r2>[data-who="second"]').length === 3) ||
+  ($('.r3>[data-who="first"]').length === 3)||
+  ($('.r3>[data-who="second"]').length === 3)||
+  ($('.c1[data-who="first"]').length === 3)||
+  ($('.c1[data-who="second"]').length === 3) ||
+  ($('.c2[data-who="first"]').length === 3) ||
+  ($('.c2[data-who="second"]').length === 3)||
+  ($('.c3[data-who="first"]').length === 3)||
+  ($('.c3[data-who="second"]').length === 3) ||
+  ($('.r1>.c1[data-who="first"], .r2>.c2[data-who="first"], .r3>.c3[data-who="first"]').length === 3)||
+  ($('.r1>.c1[data-who="second"], .r2>.c2[data-who="second"], .r3>.c3[data-who="second"]').length === 3)||
+  ($('.r1>.c3[data-who="first"], .r2>.c2[data-who="first"], .r3>.c1[data-who="first"]').length === 3)||
+  ($('.r1>.c3[data-who="second"], .r2>.c2[data-who="second"], .r3>.c1[data-who="second"]').length === 3)){
     $('.mydiv').append('<div class="win"><div><span class="'+ $(newThis).children().attr("class")+'" aria-hidden="true"></span>is the Winner!!!</div><button type="button" class="btn btn-success">Play Again!!</button>');
     win = true;
     $('.btn').on('click', replay);
   }
-  else if($('.r1 > .c1').attr('data-icon') === 'true' &&
-  $('.r1 > .c2').attr('data-icon') === 'true' &&
-  $('.r1 > .c3').attr('data-icon') === 'true' &&
-  $('.r2 > .c1').attr('data-icon') === 'true' &&
-  $('.r2 > .c2').attr('data-icon') === 'true' &&
-  $('.r2 > .c3').attr('data-icon') === 'true' &&
-  $('.r3 > .c1').attr('data-icon') === 'true' &&
-  $('.r3 > .c2').attr('data-icon') === 'true' &&
-  $('.r3 > .c3').attr('data-icon') === 'true'){
+  else if($(".container").find('[data-icon="true"]').length === 9){
     $('.mydiv').append('<div class="win"><div><div class="cat"></div> is the Winner!!!</div><button type="button" class="btn btn-success">Play Again!!</button>');
     win = true;
     $('.btn').on('click', replay);
 
   }
-
-
 }
+
 function replay(){
   newBucket = $.merge([], bucket);
   firstPlayer = 'true';
